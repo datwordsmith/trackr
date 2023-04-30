@@ -7,8 +7,9 @@
 
     @section('breadcrumbs')
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{{ url('t/users')}}">Users</a></li>
             <li class="breadcrumb-item active" aria-current="page">All Users</li>
+            <li class="breadcrumb-item"><a href="{{ url('t/users/active')}}">Active</a></li>
+            <li class="breadcrumb-item"><a href="{{ url('t/users/inactive')}}">Inactive</a></li>
         </ol>
     @endsection
 
@@ -29,44 +30,46 @@
                             {{ session('message') }}
                         </div>
                     @endif
-
+                    <div class="mb-3">
+                        <input type="text" class="form-control" wire:model="search" placeholder="Search...">
+                    </div>
                     <div class="table-responsive">
                         <table id="category_table" class="table table-striped align-items-center mb-0" style="width:100%">
                             <thead class="table-dark">
                                 <tr class="">
-                                    <th class="text-secondary text-xs font-weight-semibold opacity-7 w-30">Name</th>
-                                    <th class="text-secondary text-xs font-weight-semibold opacity-7 w-30">Email Address</th>
-                                    <th class="text-secondary text-xs font-weight-semibold opacity-7 w-20 text-center">Status</th>
-                                    <th class="text-secondary text-xs font-weight-semibold opacity-7 w-20">Action</th>
+                                    <th class="text-secondary text-xs font-weight-semibold opacity-7 w-40">Name</th>
+                                    <th class="text-secondary text-xs font-weight-semibold opacity-7 w-40">Email Address</th>
+                                    <th class="text-secondary text-xs font-weight-semibold opacity-7 w-10 text-center">Status</th>
+                                    <th class="text-secondary text-xs font-weight-semibold opacity-7 w-10">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @forelse ($users as $index => $user)
-                                <tr>
-                                    <td>{{$user->name}}</td>
-                                    <td>{{$user->email}}</td>
-                                    <td class="text-center">
+                                    <tr>
+                                        <td>{{$user->name}}</td>
+                                        <td>{{$user->email}}</td>
+                                        <td class="text-center">
 
-                                        @if($user->status == '1')
-                                            <i class="far fa-check-circle text-success"></i>
-                                            {{-- <div class="d-inline-block me-1">Inactive</div>
-                                            <div class="form-check form-switch d-inline-block">
-                                                <input type="checkbox" class="form-check-input" id="site_state" style="cursor: pointer;" {{$user->status}}>
-                                                <label for="site_state" class="form-check-label">On</label>
-                                            </div> --}}
-                                        @else
-                                            <i class="fas fa-ban text-danger"></i>
-                                        @endif
-                                    </td>
-                                    <td class="">
+                                            @if($user->status == '1')
+                                                <i class="far fa-check-circle text-success"></i>
+                                                {{-- <div class="d-inline-block me-1">Inactive</div>
+                                                <div class="form-check form-switch d-inline-block">
+                                                    <input type="checkbox" class="form-check-input" id="site_state" style="cursor: pointer;" {{$user->status}}>
+                                                    <label for="site_state" class="form-check-label">On</label>
+                                                </div> --}}
+                                            @else
+                                                <i class="fas fa-ban text-danger"></i>
+                                            @endif
+                                        </td>
+                                        <td class="">
 
 
-                                        <div class="btn-group" role="group" aria-label="Basic example">
-                                            <a href="#" wire:click="editUser({{$user->id}})" data-bs-toggle="modal" data-bs-target="#editUserModal" class="btn btn-sm btn-warning text-white"><i class="fas fa-pen"></i></a>
-                                            <a href="#" wire:click="deleteUser({{$user->id}})" data-bs-toggle="modal" data-bs-target="#deleteUserModal" class="btn btn-sm btn-danger text-white"><i class="fas fa-trash-alt"></i></a>
-                                        </div>
-                                    </td>
-                                </tr>
+                                            <div class="btn-group" role="group" aria-label="Basic example">
+                                                <a href="#" wire:click="editUser({{$user->id}})" data-bs-toggle="modal" data-bs-target="#editUserModal" class="btn btn-sm btn-warning text-white"><i class="fas fa-pen"></i></a>
+                                                <a href="#" wire:click="deleteUser({{$user->id}})" data-bs-toggle="modal" data-bs-target="#deleteUserModal" class="btn btn-sm btn-danger text-white"><i class="fas fa-trash-alt"></i></a>
+                                            </div>
+                                        </td>
+                                    </tr>
                                 @empty
                                     <tr>
                                         <td colspan="6" class="text-center text-danger">No Project Found</td>
@@ -94,21 +97,6 @@
                 $('#editUserModal').modal('hide');
                 $('#deleteUserModal').modal('hide');
             });
-
-            /* $(document).on('livewire:submit', function () {
-                // Get the checkbox element using jQuery
-                var checkbox = $('#status');
-
-                // If the checkbox is not checked, set the value to 0
-                if (checkbox.is(':checked')) {
-                    checkbox.val('1');
-                } else {
-                    checkbox.val('0');
-                }
-
-                // Update the Livewire model with the new value of the checkbox
-                checkbox.trigger('input');
-            }); */
         });
     </script>
 @endsection

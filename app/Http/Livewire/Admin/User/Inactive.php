@@ -9,7 +9,7 @@ use Livewire\WithPagination;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Hash;
 
-class Index extends Component
+class Inactive extends Component
 {
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
@@ -105,11 +105,13 @@ class Index extends Component
 
     public function render()
     {
-        $users = User::where('name', 'like', '%'.$this->search.'%')
-                 ->orWhere('email', 'like', '%'.$this->search.'%')
-                 ->orderBy('name', 'ASC')
-                 ->orderBy('email', 'ASC')
-                 ->paginate(5);
-        return view('livewire.admin.user.index', ['users' => $users])->extends('layouts.admin')->section('content');
+        $users = User::where(function($query) {
+                    $query->where('name', 'like', '%'.$this->search.'%')
+                        ->orWhere('email', 'like', '%'.$this->search.'%');
+                })
+                ->where('status', 0)
+                ->orderBy('name', 'ASC')
+                ->paginate(5);
+        return view('livewire.admin.user.inactive', ['users' => $users])->extends('layouts.admin')->section('content');
     }
 }
