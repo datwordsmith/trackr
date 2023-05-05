@@ -29,17 +29,19 @@
                             {{ session('message') }}
                         </div>
                     @endif
-
+                    <div class="mb-3">
+                        <input type="text" class="form-control" wire:model="search" placeholder="Search...">
+                    </div>
                     <div class="table-responsive">
                         <table id="category_table" class="table table-striped align-items-center mb-0" style="width:100%">
                             <thead class="table-dark">
                                 <tr class="">
-                                    <th class="text-secondary text-xs font-weight-semibold opacity-7 w-10">Name</th>
-                                    <th class="text-secondary text-xs font-weight-semibold opacity-7 w-10">Client</th>
-                                    <th class="text-secondary text-xs font-weight-semibold opacity-7 w-10">Start Date</th>
-                                    <th class="text-secondary text-xs font-weight-semibold opacity-7 w-10">Expected Delivery</th>
-                                    <th class="text-secondary text-xs font-weight-semibold opacity-7 w-10 text-center">Status</th>
-                                    <th class="text-secondary text-xs font-weight-semibold opacity-7 w-40">Action</th>
+                                    <th class="text-secondary text-xs font-weight-semibold opacity-7 col-3">Name</th>
+                                    <th class="text-secondary text-xs font-weight-semibold opacity-7 col-2">Client</th>
+                                    <th class="text-secondary text-xs font-weight-semibold opacity-7 col-2">Start Date</th>
+                                    <th class="text-secondary text-xs font-weight-semibold opacity-7 col-2">Expected Delivery</th>
+                                    <th class="text-secondary text-xs font-weight-semibold opacity-7 col-1 text-center">Status</th>
+                                    <th class="text-secondary text-xs font-weight-semibold opacity-7 col-1">Action</th>
                                 </tr>
                             </thead>
                             <tbody>

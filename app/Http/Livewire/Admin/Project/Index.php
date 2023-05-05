@@ -13,6 +13,7 @@ class Index extends Component
     protected $paginationTheme = 'bootstrap';
 
     public $project_id, $name, $slug, $description, $client, $start_date, $expected_delivery_date;
+    public $search;
 
     public function rules()
     {
@@ -95,7 +96,11 @@ class Index extends Component
 
     public function render()
     {
-        $projects = Project::orderBy('name', 'ASC')->paginate(5);
+        $projects = Project::where('name', 'like', '%'.$this->search.'%')
+                 ->orWhere('client', 'like', '%'.$this->search.'%')
+                 ->orderBy('name', 'ASC')
+                 ->orderBy('client', 'ASC')
+                 ->paginate(5);
         return view('livewire.admin.project.index', ['projects' => $projects])->extends('layouts.admin')->section('content');
     }
 }

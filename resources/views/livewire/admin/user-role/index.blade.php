@@ -33,8 +33,8 @@
                         <table id="category_table" class="table table-striped align-items-center mb-0" style="width:100%">
                             <thead class="table-dark">
                                 <tr class="">
-                                    <th class="text-secondary text-xs font-weight-semibold opacity-7 w-90">User Role</th>
-                                    <th class="text-secondary text-xs font-weight-semibold opacity-7 w-10">Action</th>
+                                    <th class="text-secondary text-xs font-weight-semibold opacity-7 col-10">User Role</th>
+                                    <th class="text-secondary text-xs font-weight-semibold opacity-7 col-1">Action</th>
                                 </tr>
                             </thead>
                             <tbody>

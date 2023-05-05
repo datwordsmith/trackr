@@ -53,7 +53,23 @@
             </a>
           </li>
           <li class="sidebar-item">
-            <a class="sidebar-link" href="./ui-alerts.html" aria-expanded="false">
+            <a class="sidebar-link" href="{{ url('t/material-categories')}}" aria-expanded="false">
+              <span>
+                <i class="fas fa-puzzle-piece"></i>
+              </span>
+              <span class="hide-menu">Categories</span>
+            </a>
+          </li>
+          <li class="sidebar-item">
+            <a class="sidebar-link" href="{{ url('t/measures')}}" aria-expanded="false">
+              <span>
+                <i class="fas fa-ruler-combined"></i>
+              </span>
+              <span class="hide-menu">Units/Measures</span>
+            </a>
+          </li>
+          <li class="sidebar-item">
+            <a class="sidebar-link" href="{{ url('t/materials')}}" aria-expanded="false">
               <span>
                 <i class="fas fa-tools"></i>
               </span>

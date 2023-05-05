@@ -37,10 +37,10 @@
                         <table id="category_table" class="table table-striped align-items-center mb-0" style="width:100%">
                             <thead class="table-dark">
                                 <tr class="">
-                                    <th class="text-secondary text-xs font-weight-semibold opacity-7 w-40">Name</th>
-                                    <th class="text-secondary text-xs font-weight-semibold opacity-7 w-40">Email Address</th>
-                                    <th class="text-secondary text-xs font-weight-semibold opacity-7 w-10 text-center">Status</th>
-                                    <th class="text-secondary text-xs font-weight-semibold opacity-7 w-10">Action</th>
+                                    <th class="text-secondary text-xs font-weight-semibold opacity-7 col-4">Name</th>
+                                    <th class="text-secondary text-xs font-weight-semibold opacity-7 col-4">Email Address</th>
+                                    <th class="text-secondary text-xs font-weight-semibold opacity-7 col-1 text-center">Status</th>
+                                    <th class="text-secondary text-xs font-weight-semibold opacity-7 col-1">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
