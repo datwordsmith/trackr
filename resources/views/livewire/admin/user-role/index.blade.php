@@ -46,8 +46,10 @@
                                 <tr>
                                     <td>{{$user_role->role}}</td>
                                     <td class="">
-                                        <a href="#" wire:click="editRole({{$user_role->id}})" data-bs-toggle="modal" data-bs-target="#editRoleModal" class="btn btn-sm btn-warning text-white"><i class="far fa-edit"></i></a>
-                                        <a href="#" wire:click="deleteRole({{$user_role->id}})" data-bs-toggle="modal" data-bs-target="#deleteRoleModal" class="btn btn-sm btn-danger text-white"><i class="fas fa-trash-alt"></i></a>
+                                        <div class="btn-group" role="group" aria-label="">
+                                            <a href="#" wire:click="editRole({{$user_role->id}})" data-bs-toggle="modal" data-bs-target="#editRoleModal" class="btn btn-sm btn-warning text-white"><i class="far fa-edit"></i></a>
+                                            <a href="#" wire:click="deleteRole({{$user_role->id}})" data-bs-toggle="modal" data-bs-target="#deleteRoleModal" class="btn btn-sm btn-danger text-white"><i class="fas fa-trash-alt"></i></a>
+                                        </div>
                                     </td>
                                 </tr>
                                 @empty

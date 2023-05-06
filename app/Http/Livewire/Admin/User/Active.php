@@ -122,7 +122,7 @@ class Active extends Component
                 })
                 ->where('status', 1)
                 ->orderBy('name', 'ASC')
-                ->paginate(5);
+                ->paginate(10);
         return view('livewire.admin.user.active', ['users' => $users])->extends('layouts.admin')->section('content');
     }
 }

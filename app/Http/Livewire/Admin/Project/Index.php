@@ -111,7 +111,7 @@ class Index extends Component
                  ->orWhere('client', 'like', '%'.$this->search.'%')
                  ->orderBy('name', 'ASC')
                  ->orderBy('client', 'ASC')
-                 ->paginate(5);
+                 ->paginate(10);
         return view('livewire.admin.project.index', ['projects' => $projects])->extends('layouts.admin')->section('content');
     }
 }

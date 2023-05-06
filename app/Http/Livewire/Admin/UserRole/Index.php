@@ -89,7 +89,7 @@ class Index extends Component
 
     public function render()
     {
-        $user_roles = UserRole::orderBy('role', 'ASC')->paginate(5);
+        $user_roles = UserRole::orderBy('role', 'ASC')->paginate(10);
         return view('livewire.admin.user-role.index', ['user_roles' => $user_roles])->extends('layouts.admin')->section('content');
     }
 

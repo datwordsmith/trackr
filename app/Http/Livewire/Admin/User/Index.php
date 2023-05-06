@@ -119,7 +119,7 @@ class Index extends Component
                  ->orWhere('email', 'like', '%'.$this->search.'%')
                  ->orderBy('name', 'ASC')
                  ->orderBy('email', 'ASC')
-                 ->paginate(5);
+                 ->paginate(10);
         return view('livewire.admin.user.index', ['users' => $users])->extends('layouts.admin')->section('content');
     }
 }

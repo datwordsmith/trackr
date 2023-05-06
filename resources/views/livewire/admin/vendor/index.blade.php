@@ -1,14 +1,13 @@
 <div>
-    @include('livewire.admin.project.modal-form')
+    @include('livewire.admin.vendor.modal-form')
 
     @section('pagename')
-        <i class="fas fa-project-diagram"></i> Projects
+        <i class="fas fa-project-diagram"></i> Vendors
     @endsection
 
     @section('breadcrumbs')
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{{ url('projects')}}">Projects</a></li>
-            <li class="breadcrumb-item active" aria-current="page">All Projects</li>
+            <li class="breadcrumb-item active" aria-current="page">Vendors</li>
         </ol>
     @endsection
 
@@ -18,10 +17,10 @@
                 <div class="card-body p-4">
                     <div class="col-md-12 d-flex mb-2">
                         <div>
-                            <h5 class="card-title fw-semibold mb-4">Project Listing</h5>
+                            <h5 class="card-title fw-semibold mb-4">Vendor Listing</h5>
                         </div>
                         <div class="ms-auto">
-                            <a href="#" data-bs-toggle="modal" data-bs-target="#addProjectModal" class="btn btn-sm btn-primary text-white"><i class="fas fa-plus-square pr-4"></i>&nbsp;&nbsp; Add Project</a>
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#addVendorModal" class="btn btn-sm btn-primary text-white"><i class="fas fa-plus-square pr-4"></i>&nbsp;&nbsp; Add vendor</a>
                         </div>
                     </div>
                     @if (session('message'))
@@ -42,43 +41,44 @@
                             <thead class="table-dark">
                                 <tr class="">
                                     <th class="text-secondary text-xs font-weight-semibold opacity-7 col-3">Name</th>
-                                    <th class="text-secondary text-xs font-weight-semibold opacity-7 col-2">Client</th>
-                                    <th class="text-secondary text-xs font-weight-semibold opacity-7 col-2">Start Date</th>
-                                    <th class="text-secondary text-xs font-weight-semibold opacity-7 col-2">Expected Delivery</th>
-                                    <th class="text-secondary text-xs font-weight-semibold opacity-7 col-1 text-center">Status</th>
+                                    <th class="text-secondary text-xs font-weight-semibold opacity-7 col-1">Phone</th>
+                                    <th class="text-secondary text-xs font-weight-semibold opacity-7 col-2">Email</th>
+                                    <th class="text-secondary text-xs font-weight-semibold opacity-7 col-1">Location</th>
+                                    <th class="text-secondary text-xs font-weight-semibold opacity-7 col-2">Services</th>
                                     <th class="text-secondary text-xs font-weight-semibold opacity-7 col-1">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse ($projects as $index => $project)
+                                @forelse ($vendors as $index => $vendor)
                                 <tr>
-                                    <td>{{$project->name}}</td>
-                                    <td>{{$project->client}}</td>
-                                    <td>{{$project->start_date}}</td>
-                                    <td>{{$project->expected_delivery_date}}</td>
-                                    <td class="text-center">
-                                        @if($project->status == '1')
-                                            <i class="far fa-check-circle text-success"></i>
-                                        @else
-                                            <i class="fas fa-ban text-danger"></i>
-                                        @endif
+                                    <td>{{$vendor->name}}</td>
+                                    <td>{{$vendor->phone}}</td>
+                                    <td>{{$vendor->email}}</td>
+                                    <td>{{$vendor->location}}</td>
+                                    <td>
+                                        @foreach($vendor->services as $service)
+                                            {{$service->service}}
+                                            @if(!$loop->last)
+                                                ,
+                                            @endif
+                                        @endforeach
                                     </td>
                                     <td class="">
                                         <div class="btn-group" role="group">
-                                            <a href="#" wire:click="editProject({{$project->id}})" data-bs-toggle="modal" data-bs-target="#editProjectModal" class="btn btn-sm btn-warning text-white"><i class="far fa-edit"></i></a>
-                                            <a href="#" wire:click="deleteProject({{$project->id}})" data-bs-toggle="modal" data-bs-target="#deleteProjectModal" class="btn btn-sm btn-danger text-white"><i class="fas fa-trash-alt"></i></a>
+                                            <a href="#" wire:click="editVendor({{$vendor->id}})" data-bs-toggle="modal" data-bs-target="#editVendorModal" class="btn btn-sm btn-warning text-white"><i class="far fa-edit"></i></a>
+                                            <a href="#" wire:click="deleteVendor({{$vendor->id}})" data-bs-toggle="modal" data-bs-target="#deleteVendorModal" class="btn btn-sm btn-danger text-white"><i class="fas fa-trash-alt"></i></a>
                                         </div>
                                     </td>
                                 </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="6" class="text-center text-danger">No Project Found</td>
+                                        <td colspan="6" class="text-center text-danger">No Vendor Found</td>
                                     </tr>
                                 @endforelse
                             </tbody>
                         </table>
                         <div class="row mt-2">
-                            {{ $projects->links() }}
+                            {{ $vendors->links() }}
                         </div>
                     </div>
 
@@ -92,9 +92,9 @@
 @section('scripts')
     <script>
         window.addEventListener('close-modal', event => {
-            $('#addProjectModal').modal('hide');
-            $('#editProjectModal').modal('hide');
-            $('#deleteProjectModal').modal('hide');
+            $('#addVendorModal').modal('hide');
+            $('#editVendorModal').modal('hide');
+            $('#deleteVendorModal').modal('hide');
         })
     </script>
 @endsection

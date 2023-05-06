@@ -36,4 +36,5 @@ Route::prefix('t')->middleware(['auth', 'isAdmin'])->group(function (){
     Route::get('/material-categories', App\Http\Livewire\Admin\MaterialCategory\Index::class);
     Route::get('/measures', App\Http\Livewire\Admin\Measure\Index::class);
     Route::get('/materials', App\Http\Livewire\Admin\Material\Index::class);
+    Route::get('/vendors', App\Http\Livewire\Admin\Vendor\Index::class);
 });

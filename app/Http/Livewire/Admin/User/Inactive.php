@@ -122,7 +122,7 @@ class Inactive extends Component
                 })
                 ->where('status', 0)
                 ->orderBy('name', 'ASC')
-                ->paginate(5);
+                ->paginate(10);
         return view('livewire.admin.user.inactive', ['users' => $users])->extends('layouts.admin')->section('content');
     }
 }
