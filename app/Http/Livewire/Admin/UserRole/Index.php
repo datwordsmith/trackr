@@ -61,9 +61,20 @@ class Index extends Component
 
     public function destroyRole()
     {
-        $user_role = Project::FindOrFail($this->role_id);
-        $user_role->delete();
-        session()->flash('message', 'User Role deleted successfully');
+        try {
+            $user_role = UserRole::FindOrFail($this->role_id);
+            $user_role->delete();
+            session()->flash('message', 'User Role deleted successfully.');
+        } catch (\Illuminate\Database\QueryException $e) {
+            if ($e->errorInfo[1] == 1451) { // check if error is foreign key constraint violation
+                session()->flash('error', 'Cannot delete this role because it is referenced in another module.');
+            } else {
+                session()->flash('error', 'An error occurred while deleting the user role.');
+            }
+        } catch (\Exception $e) {
+            session()->flash('error', 'An error occurred while deleting the user role.');
+        }
+
         $this->dispatchBrowserEvent('close-modal');
         $this->resetInput();
     }

@@ -88,9 +88,20 @@ class Active extends Component
 
     public function destroyUser()
     {
-        $user = User::FindOrFail($this->user_id);
-        $user->delete();
-        session()->flash('message', 'User deleted successfully');
+        try {
+            $user = User::FindOrFail($this->user_id);
+            $user->delete();
+            session()->flash('message', 'User deleted successfully.');
+        } catch (\Illuminate\Database\QueryException $e) {
+            if ($e->errorInfo[1] == 1451) { // check if error is foreign key constraint violation
+                session()->flash('error', 'Cannot delete user because it is referenced in another module.');
+            } else {
+                session()->flash('error', 'An error occurred while deleting the user.');
+            }
+        } catch (\Exception $e) {
+            session()->flash('error', 'An error occurred while deleting the user.');
+        }
+
         $this->dispatchBrowserEvent('close-modal');
         $this->resetInput();
     }

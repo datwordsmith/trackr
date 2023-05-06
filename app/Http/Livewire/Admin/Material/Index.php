@@ -21,8 +21,8 @@ class Index extends Component
     {
         return [
             'name' => 'required|string',
-            'category_id' => 'required|numeric|min:1',
-            'unit_id' => 'required|numeric|min:1'
+            'category_id' => 'required|numeric|min:1|exists:material_category,id',
+            'unit_id' => 'required|numeric|min:1|exists:measures,id'
         ];
     }
 
@@ -38,6 +38,14 @@ class Index extends Component
         $this->unit_id = NULL;
     }
 
+    public function closeModal() {
+        $this->resetInput();
+    }
+
+    public function openModal() {
+        $this->resetInput();
+    }
+
     public function storeMaterial()
     {
         $validatedData = $this->validate();
@@ -48,6 +56,54 @@ class Index extends Component
 
         $this->dispatchBrowserEvent('close-modal');
         $this->resetInput();
+    }
+
+    public function editMaterial(int $material_id)
+    {
+        $material = Material::FindOrFail($material_id);
+        $this->material_id = $material_id;
+        $this->name = $material->name;
+        $this->category_id = $material->category_id;
+        $this->unit_id = $material->unit_id;
+    }
+
+    public function updateMaterial()
+    {
+        $validatedData = $this->validate();
+        $validatedData['slug'] = Str::slug($validatedData['name']);
+
+        $material = Material::findOrFail($this->material_id);
+        $material->update($validatedData);
+
+        session()->flash('message', 'Material Updated Successfully');
+        $this->dispatchBrowserEvent('close-modal');
+        $this->resetInput();
+    }
+
+    public function deleteMaterial($material_id)
+    {
+        $this->material_id = $material_id;
+    }
+
+    public function destroyMaterial()
+    {
+        try {
+            $material = Material::FindOrFail($this->material_id);
+            $material->delete();
+            session()->flash('message', 'Material deleted successfully.');
+        } catch (\Illuminate\Database\QueryException $e) {
+            if ($e->errorInfo[1] == 1451) { // check if error is foreign key constraint violation
+                session()->flash('error', 'Cannot delete material because it is referenced in another module.');
+            } else {
+                session()->flash('error', 'An error occurred while deleting the material.');
+            }
+        } catch (\Exception $e) {
+            session()->flash('error', 'An error occurred while deleting the material.');
+        }
+
+        $this->dispatchBrowserEvent('close-modal');
+        $this->resetInput();
+
     }
 
     public function render()

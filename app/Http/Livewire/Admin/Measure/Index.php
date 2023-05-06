@@ -62,9 +62,20 @@ class Index extends Component
 
     public function destroyUnit()
     {
-        $unit = Measure::FindOrFail($this->unit_id);
-        $unit->delete();
-        session()->flash('message', 'Unit deleted successfully');
+        try {
+            $unit = Measure::FindOrFail($this->unit_id);
+            $unit->delete();
+            session()->flash('message', 'Unit deleted successfully.');
+        } catch (\Illuminate\Database\QueryException $e) {
+            if ($e->errorInfo[1] == 1451) { // check if error is foreign key constraint violation
+                session()->flash('error', 'Cannot delete unit because it is referenced in another module.');
+            } else {
+                session()->flash('error', 'An error occurred while deleting the unit.');
+            }
+        } catch (\Exception $e) {
+            session()->flash('error', 'An error occurred while deleting the unit.');
+        }
+
         $this->dispatchBrowserEvent('close-modal');
         $this->resetInput();
     }

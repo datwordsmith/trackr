@@ -1,5 +1,5 @@
 <div>
-    @include('livewire.admin.material-category.modal-form')
+    @include('livewire.admin.material.modal-form')
 
     @section('pagename')
         <i class="fas fa-tools"></i> Materials
@@ -63,6 +63,11 @@
                     @if (session('message'))
                         <div class="alert alert-success" role="alert">
                             {{ session('message') }}
+                        </div>
+                    @endif
+                    @if (session('error'))
+                        <div class="alert alert-danger" role="alert">
+                            {{ session('error') }}
                         </div>
                     @endif
                     <div class="mb-3">

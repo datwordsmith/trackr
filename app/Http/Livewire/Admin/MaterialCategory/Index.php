@@ -65,9 +65,21 @@ class Index extends Component
 
     public function destroyCategory()
     {
-        $material_category = MaterialCategory::FindOrFail($this->category_id);
-        $material_category->delete();
-        session()->flash('message', 'Category deleted successfully');
+
+        try {
+            $material_category = MaterialCategory::findOrFail($this->category_id);
+            $material_category->delete();
+            session()->flash('message', 'Category deleted successfully.');
+        } catch (\Illuminate\Database\QueryException $e) {
+            if ($e->errorInfo[1] == 1451) { // check if error is foreign key constraint violation
+                session()->flash('error', 'Cannot delete category because it is referenced in another module.');
+            } else {
+                session()->flash('error', 'An error occurred while deleting the category.');
+            }
+        } catch (\Exception $e) {
+            session()->flash('error', 'An error occurred while deleting the category.');
+        }
+
         $this->dispatchBrowserEvent('close-modal');
         $this->resetInput();
     }

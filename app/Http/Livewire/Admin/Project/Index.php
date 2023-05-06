@@ -79,9 +79,20 @@ class Index extends Component
 
     public function destroyProject()
     {
-        $project = Project::FindOrFail($this->project_id);
-        $project->delete();
-        session()->flash('message', 'Project deleted successfully');
+        try {
+            $project = Project::FindOrFail($this->project_id);
+            $project->delete();
+            session()->flash('message', 'Project deleted successfully.');
+        } catch (\Illuminate\Database\QueryException $e) {
+            if ($e->errorInfo[1] == 1451) { // check if error is foreign key constraint violation
+                session()->flash('error', 'Cannot delete project because it is referenced in another module.');
+            } else {
+                session()->flash('error', 'An error occurred while deleting the project.');
+            }
+        } catch (\Exception $e) {
+            session()->flash('error', 'An error occurred while deleting the project.');
+        }
+
         $this->dispatchBrowserEvent('close-modal');
         $this->resetInput();
     }

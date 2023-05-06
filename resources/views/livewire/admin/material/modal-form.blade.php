@@ -15,12 +15,34 @@
                     </div>
                 </div>
                 <div wire:loading.remove>
-                    <form wire:submit.prevent="updateUnit()">
+                    <form wire:submit.prevent="updateMaterial()">
                         <div class="modal-body">
                             <div class="mb-3">
                                 <label class="form-label">Measure/Unit</label>
                                 <input type="text" class="form-control" wire:model.defer="name">
                                 @error('name')
+                                    <small class="error text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                            <div class="mb-3">
+                                <select class="form-select" wire:model.defer="category_id" required>
+                                    <option value="">Select a category</option>
+                                    @foreach ($categories as $category)
+                                        <option value="{{ $category->id }}" {{ $category_id == $category->id ? 'selected' : '' }}>{{ $category->category }}</option>
+                                    @endforeach
+                                </select>
+                                @error('category_id')
+                                    <small class="error text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                            <div class="mb-3">
+                                <select class="form-select" wire:model.defer="unit_id" required>
+                                    <option value="">Select a Unit</option>
+                                    @foreach ($units as $unit)
+                                        <option value="{{ $unit->id }}" {{ $unit_id == $unit->id ? 'selected' : '' }}>{{ $unit->name }}</option>
+                                    @endforeach
+                                </select>
+                                @error('unit_id')
                                     <small class="error text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
@@ -42,7 +64,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5">Delete Measure/Unit</h1>
+                    <h1 class="modal-title fs-5">Delete Material</h1>
                     <button type="button" class="btn-close" wire:click ="closeModal" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div wire:loading class="py-5">
@@ -53,9 +75,9 @@
                     </div>
                 </div>
                 <div wire:loading.remove>
-                    <form wire:submit.prevent="destroyUnit()">
+                    <form wire:submit.prevent="destroyMaterial()">
                         <div class="modal-body">
-                            <h4>Are you sure you want to delete this Measure/Unit?</h4>
+                            <h4>Are you sure you want to delete this Material?</h4>
                         </div>
                         <div class="modal-footer">
                             <button type="button" wire:click ="closeModal" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

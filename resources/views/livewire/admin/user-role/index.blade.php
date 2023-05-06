@@ -28,7 +28,11 @@
                             {{ session('message') }}
                         </div>
                     @endif
-
+                    @if (session('error'))
+                        <div class="alert alert-danger" role="alert">
+                            {{ session('error') }}
+                        </div>
+                    @endif
                     <div class="table-responsive">
                         <table id="category_table" class="table table-striped align-items-center mb-0" style="width:100%">
                             <thead class="table-dark">

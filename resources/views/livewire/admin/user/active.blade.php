@@ -27,7 +27,11 @@
                             {{ session('message') }}
                         </div>
                     @endif
-
+                    @if (session('error'))
+                        <div class="alert alert-danger" role="alert">
+                            {{ session('error') }}
+                        </div>
+                    @endif
                     <div class="table-responsive">
                         <table id="ActiveUsers" class="table table-striped dt-responsive nowrap" style="width:100%">
                             <thead class="table-dark">

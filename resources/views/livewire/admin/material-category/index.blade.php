@@ -44,6 +44,11 @@
                             {{ session('message') }}
                         </div>
                     @endif
+                    @if (session('error'))
+                        <div class="alert alert-danger" role="alert">
+                            {{ session('error') }}
+                        </div>
+                    @endif
                     <div class="mb-3">
                         <input type="text" class="form-control" wire:model="search" placeholder="Search...">
                     </div>
