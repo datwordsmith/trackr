@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Project extends Model
 {
@@ -20,4 +21,9 @@ class Project extends Model
         'expected_delivery_date',
         'status',
     ];
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class)->withPivot('role_id');
+    }
 }

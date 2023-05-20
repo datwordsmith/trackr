@@ -52,7 +52,7 @@
                             <tbody>
                                 @forelse ($projects as $index => $project)
                                 <tr>
-                                    <td>{{$project->name}}</td>
+                                    <td><a href="{{ url('t/project/'.$project->slug) }}" class="">{{$project->name}}</a></td>
                                     <td>{{$project->client}}</td>
                                     <td>{{$project->start_date}}</td>
                                     <td>{{$project->expected_delivery_date}}</td>
@@ -65,6 +65,7 @@
                                     </td>
                                     <td class="">
                                         <div class="btn-group" role="group">
+                                            <a href="{{ url('t/project/'.$project->slug) }}" class="btn btn-sm btn-primary text-white"><i class="far fa-eye"></i></a>
                                             <a href="#" wire:click="editProject({{$project->id}})" data-bs-toggle="modal" data-bs-target="#editProjectModal" class="btn btn-sm btn-warning text-white"><i class="far fa-edit"></i></a>
                                             <a href="#" wire:click="deleteProject({{$project->id}})" data-bs-toggle="modal" data-bs-target="#deleteProjectModal" class="btn btn-sm btn-danger text-white"><i class="fas fa-trash-alt"></i></a>
                                         </div>

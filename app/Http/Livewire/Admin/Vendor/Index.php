@@ -36,6 +36,7 @@ class Index extends Component
         $this->phone = NULL;
         $this->email = NULL;
         $this->location = NULL;
+        $this->services = [];
     }
 
     public function closeModal() {

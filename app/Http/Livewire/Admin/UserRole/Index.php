@@ -21,7 +21,7 @@ class Index extends Component
     }
 
     public function resetInput() {
-        $this->name = NULL;
+        $this->role = NULL;
     }
 
     public function storeRole()
