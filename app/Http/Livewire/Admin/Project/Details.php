@@ -9,10 +9,12 @@ use App\Models\UserRole;
 
 class Details extends Component
 {
-    public $projectId, $project, $client, $editClient = false, $editPM = false, $projectUsers;
+    public $projectId, $project, $client, $editClient = false, $editPM = false, $editBO = false, $editQS = false, $projectUsers;
 
     protected $rules = [
         'projectManager' => 'required',
+        'budgetOfficer' => 'required',
+        'quantitySurveyor' => 'required',
     ];
 
     public function mount($slug)
@@ -22,6 +24,7 @@ class Details extends Component
         $this->users = User::where('status', 1)->get(); //Fetch only active users
         $this->projectUsers = $this->project->users()->with('role')->get();
         $this->projectManager = $this->project->users->first();
+        $this->budgetOfficer = $this->project->users->first();
     }
 
     public function toggleClient()
@@ -61,6 +64,30 @@ class Details extends Component
         $this->projectManager = $this->users->find($validatedData['projectManager']);
 
         $this->editPM = false;
+        // Update the $project property with the latest data
+        $this->project = $this->project->fresh();
+    }
+
+    public function toggleBO()
+    {
+        $this->editBO = !$this->editBO;
+    }
+
+    public function updateBO()
+    {
+        $validatedData = $this->validate([
+            'budgetOfficer' => 'required|exists:users,id',
+        ]);
+
+        $userRole = UserRole::where('role', 'Budget Officer')->first(); // Retrieve the appropriate role for the Budget Officer
+
+        $this->project->users()->sync([
+            $validatedData['budgetOfficer'] => ['role_id' => $userRole->id],
+        ]);
+
+        $this->budgetOfficer = $this->users->find($validatedData['budgetOfficer']);
+
+        $this->editBO = false;
         // Update the $project property with the latest data
         $this->project = $this->project->fresh();
     }
