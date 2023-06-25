@@ -7,7 +7,7 @@
 
     @section('breadcrumbs')
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{{ url('projects')}}">Projects</a></li>
+            <li class="breadcrumb-item"><a href="{{ url('t/projects')}}">Projects</a></li>
             <li class="breadcrumb-item active" aria-current="page">All Projects</li>
         </ol>
     @endsection

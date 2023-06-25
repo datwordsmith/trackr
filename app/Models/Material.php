@@ -20,13 +20,13 @@ class Material extends Model
         'unit_id'
     ];
 
-    public function category()
-    {
-        return $this->belongsTo(MaterialCategory::class);
-    }
-
     public function unit()
     {
         return $this->belongsTo(Measure::class);
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(MaterialCategory::class, 'category_id');
     }
 }

@@ -17,8 +17,9 @@ class MaterialCategory extends Model
         'slug',
     ];
 
+
     public function materials()
     {
-        return $this->hasMany(Material::class);
+        return $this->hasMany(Material::class, 'category_id');
     }
 }

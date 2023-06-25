@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\User;
+use App\Models\ProjectUser;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -22,8 +23,16 @@ class Project extends Model
         'status',
     ];
 
+
     public function users()
     {
-        return $this->belongsToMany(User::class)->withPivot('role_id');
+        return $this->belongsToMany(User::class, 'project_user')->with('role');
     }
+
+    public function budgets()
+    {
+        return $this->hasMany(ProjectBudget::class);
+    }
+
+
 }
